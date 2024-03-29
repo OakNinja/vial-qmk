@@ -1,3 +1,0 @@
-QUANTUM_PAINTER_ENABLE = yes
-
-

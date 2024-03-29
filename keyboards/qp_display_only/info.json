@@ -18,9 +18,8 @@
             ["GP1"]
         ]
     },
-    "community_layouts": ["ortho_1x1"],
     "layouts": {
-        "LAYOUT_ortho_1x1": {
+        "LAYOUT_1x1": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0}
             ]

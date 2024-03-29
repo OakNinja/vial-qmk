@@ -13,7 +13,7 @@
 #define LCD_RST_PIN GP16
 #define LCD_DC_PIN GP12
 #define LCD_CS_PIN GP13
-#define LCD_BLK_PIN GP7
+#define LCD_BLK_PIN GP7 // Unused in this configuration
 #define LCD_SPI_DIVISOR 4
 #define LCD_WAIT_TIME 150
 #define LCD_ROTATION QP_ROTATION_0
@@ -25,11 +25,5 @@
 #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
 //#define ST7789_NO_AUTOMATIC_VIEWPORT_OFFSETS
 
-// Backlight configuration
-#define BACKLIGHT_PWM_DRIVER PWMD3
-#define BACKLIGHT_PWM_CHANNEL 2
-#define BACKLIGHT_DEFAULT_LEVEL 6
-
-// Timeout configuration
+// Timeout configuration, default 30000 (30 sek). 0 = No timeout. Beware of image retention.
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
-#define LIGHTS_TIMEOUT QUANTUM_PAINTER_DISPLAY_TIMEOUT
