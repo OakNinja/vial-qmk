@@ -1,1 +1,3 @@
-ENCODER_MAP_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += st7789_spi
+ST7789 = true
+SRC += gfx/cat320x240.qgf.c

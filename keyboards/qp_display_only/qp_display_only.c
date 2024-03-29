@@ -1,45 +1,50 @@
-// Copyright 2023 jpe230 (@jpe230)
+// Copyright 2023 OakNinja (@oakninja)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp.h"
 #include "qp_comms.h"
+
+#ifdef GC_9A01
+#include "qp_gc9a01_opcodes.h"
+#include "gfx/cat240x240.qgf.h"
+#else
 #include "qp_st77xx_opcodes.h"
-//#include "qp_gc9a01_opcodes.h"
-#include "gfx/logo.qgf.h"
+#include "gfx/cat320x240.qgf.h"
+#endif
+
+
+#include "color.h"
+#include "config.h"
 
 painter_device_t lcd;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Init board:
-// - Draw logo
-
 void keyboard_post_init_kb(void) {
-    backlight_set(BACKLIGHT_DEFAULT_LEVEL);
-
-    //Timeout
+    //Display timeout
     wait_ms(LCD_WAIT_TIME);
 
-    // Initialise the LCD
-    lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 2);
-    //lcd = qp_gc9a01_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
+    #ifdef GC_9A01
+    lcd = qp_gc9a01_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    #else
+    lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    #endif
     qp_init(lcd, LCD_ROTATION);
 
-    // Invert Colour
-    #ifdef LCD_INVERT_COLOUR
+    // Some screens have inverted colors
+    #ifdef LCD_INVERT_COLOR
     qp_comms_start(lcd);
     qp_comms_command(lcd, ST77XX_CMD_INVERT_ON);
     qp_comms_stop(lcd);
     #endif
 
-    // Apply Offset
+    // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-    // Turn on the LCD and clear the display
-    qp_power(lcd, true);
-    qp_rect(lcd, 0, 0, LCD_HEIGHT, LCD_WIDTH, HSV_WHITE, true);
+    // Power on display, fill with white
+    qp_power(lcd, 1);
+    qp_rect(lcd, 0, 0, LCD_HEIGHT, LCD_WIDTH, HSV_WHITE, 1);
 
-    // Show logo
-    painter_image_handle_t logo_image = qp_load_image_mem(gfx_logo);
+    // Paint catpaste/Katten Paste
+    painter_image_handle_t logo_image = qp_load_image_mem(gfx_cat);
     qp_drawimage(lcd, 0, 0, logo_image);
 
     keyboard_post_init_user();
@@ -55,9 +60,9 @@ void keyboard_post_init_kb(void) {
 // __attribute__((weak)) void lights_wakeup_user(void) {};
 // __attribute__((weak)) void lights_suspend_user(void) {};
 
-void backlight_wakeup(void) {
-    backlight_set(BACKLIGHT_DEFAULT_LEVEL);
-}
+//void backlight_wakeup(void) {
+//    backlight_set(BACKLIGHT_DEFAULT_LEVEL);
+//}
 
 // void backlight_suspend(void) {
 //     backlight_set(0);
@@ -87,16 +92,16 @@ void backlight_wakeup(void) {
 //     }
 // }
 
-void suspend_power_down_kb(void) {
-    //lights_suspend();
-    qp_power(lcd, true);
-    backlight_wakeup();
-    //suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    qp_power(lcd, true);
-    backlight_wakeup();
-    //lights_wakeup();
-    //suspend_wakeup_init_user();
-}
+//void suspend_power_down_kb(void) {
+//    //lights_suspend();
+//    qp_power(lcd, true);
+//    backlight_wakeup();
+//    //suspend_power_down_user();
+//}
+//
+//void suspend_wakeup_init_kb(void) {
+//    qp_power(lcd, true);
+//    backlight_wakeup();
+//    //lights_wakeup();
+//    //suspend_wakeup_init_user();
+//}

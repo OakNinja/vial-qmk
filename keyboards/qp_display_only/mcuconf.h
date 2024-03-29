@@ -1,4 +1,4 @@
-// Copyright 2023 jpe230 (@jpe230)
+// Copyright 2023 OakNinja (@oakninja)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
