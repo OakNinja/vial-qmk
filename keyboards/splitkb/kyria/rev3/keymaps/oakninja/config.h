@@ -22,7 +22,7 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #ifndef RGBLIGHT_LIMIT_VAL
-#define RGBLIGHT_LIMIT_VAL 150
+#    define RGBLIGHT_LIMIT_VAL 150
 #endif
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
@@ -61,19 +61,19 @@
 //#define ENABLE_RGB_MATRIX_PIXEL_FLOW
 //#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL*/
 #ifndef KEYBOARD_splitkb_kyria_rev2
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SPLASH
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#    define ENABLE_RGB_MATRIX_SPLASH
+#    define ENABLE_RGB_MATRIX_MULTISPLASH
+#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
@@ -85,20 +85,19 @@
 // Configure the global tapping term (default: 200ms)
 #define TAPPING_TERM 250
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-//#define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
 
-#define VIAL_KEYBOARD_UID {0x04, 0x7F, 0x41, 0xF3, 0x39, 0xD8, 0x1F, 0xEA}
+#define VIAL_KEYBOARD_UID \
+    { 0x04, 0x7F, 0x41, 0xF3, 0x39, 0xD8, 0x1F, 0xEA }
 
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 4 }
-#define VIAL_UNLOCK_COMBO_COLS { 6, 6 }
+#define VIAL_UNLOCK_COMBO_ROWS \
+    { 0, 4 }
+#define VIAL_UNLOCK_COMBO_COLS \
+    { 6, 6 }
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define VIAL_TAP_DANCE_ENTRIES 20
 
-
-//# ifdef CONWAY_ENABLE
-//#define SPLIT_TRANSACTION_IDS_USER CONWAY_SYNC
-//# endif
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
+// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17 // Specify a optional status led by GPIO number which blinks when entering the bootloader
