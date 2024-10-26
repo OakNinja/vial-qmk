@@ -1,5 +1,7 @@
 # Quantum Painter display only
 
+![Amazing!](images/GC9A01.png "Amazing!")
+
 When I first started looking into Quantum Painter, I tried to find a simple example on how to get it up and running.
 
 I'm not a complete hardware n00b, but while the documentation for Quantum Painter is well written and extensive, I still
@@ -13,15 +15,15 @@ used to test different LCD's and get a basic idea what is needed to get Quantum 
 Also, I wanted a configuration the would be widely compatible with almost _any_ Elite Pi/RP2040 based keyboard, making
 it possible to add a color LCD using Quantum Painter to an existing keyboard.
 
-So here it is - **The Guide** I wish I would have found when I started looking into Quantum Painter.
+### So here it is - **The Guide** I wish I would have found when I started looking into Quantum Painter.
 
 Let's start by going over some nomenclature.
 
-* QMK - The keyboard firmware
-* Quantum Painter - The feature in QMK that makes it possible to easily show graphics on different LCD's.
-* Controller - The hardware that QMK runs on. Only RP2040 based controllers can use Quantum Painter. Pro Micro
+* **QMK** - The keyboard firmware
+* **Quantum** Painter - The feature in QMK that makes it possible to easily show graphics on different LCD's.
+* **Controller** - The hardware that QMK runs on. Only RP2040 based controllers can use Quantum Painter. Pro Micro
   controllers won't work.
-* SPI - The protocol used to communicate between the controller and the display.
+* **SPI** - The protocol used to communicate between the controller and the display.
 
 One of the things I found it hard to wrap my head around was which pins that could/had to be used on the controller. I
 wanted to use the "Extra" pins on the bottom of the controller (12,13,14,15 and 16) since these are rarely used and
@@ -75,6 +77,9 @@ it's possible.
 
 ### Enough talk. How to get going?
 
+This firmware uses the extra pins on the bottom of the controller, pins 12, 13, 14, 15, and 16. You will also need to
+wire up VCC and GND (available as pads on most PCB's, otherwise they can be wired directly to the controller)
+
 I've built two _ready to go_ keyboard configurations. One for a 2" 320x240 st7789 display, and the round GC9A01 1.28"
 240x240
 display.
@@ -109,8 +114,6 @@ keyboard.
     * #define SPI_SCK_PIN GP14
     * #define SPI_MOSI_PIN GP15
     * #define SPI_MISO_PIN GP20 // Unused
-
-    * /* LCD Configuration */
     * #define LCD_RST_PIN GP16
     * #define LCD_DC_PIN GP12
     * #define LCD_CS_PIN GP13
@@ -120,7 +123,6 @@ keyboard.
     * #define LCD_ROTATION QP_ROTATION_0
     * #define LCD_OFFSET_X 0
     * #define LCD_OFFSET_Y 0
-    * //#define LCD_INVERT_COLOR
     * #define LCD_WIDTH 320 // Set according to your display specs
     * #define LCD_HEIGHT 240 // Set according to your display specs
     * #define SPI_MODE 2 // Set according to your display specs
@@ -131,10 +133,16 @@ keyboard.
 * Copy the gfx folder to your keyboard firmware
 * Add the code from _qp_display_only.c_ to _keyboard_post_init_kb_ in your firmware.
 
+### Thanks to :)
+
+I would never had been able to sort this without the help of **tzarc**, **elpekenin** and **honorless** on the QMK
+Discord (link below)
+
 ### Additional reading:
 
 * Find other Quantum Painter enabled firmwares: _qmk -find -f features.quantum_painter=true_
 * https://docs.qmk.fm/#/quantum_painter
+* https://discord.com/invite/qmk
 
 
 

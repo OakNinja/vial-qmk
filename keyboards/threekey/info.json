@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "threekey",
+    "usb": {
+        "device_version": "3.0.0",
+        "pid": "0x463D",
+        "vid": "0x46D4"
+    },
+    "url": "",
+    "maintainer": "tltx/OakNinja",
+    "manufacturer": "tltx/OakNinja",
+    "width": 3,
+    
+    "height": 1,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0},
+                {"label": "k02", "x": 2, "y": 0}
+            ]
+        }
+    }
+}
