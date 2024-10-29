@@ -25,19 +25,17 @@
  */
 #define ANIM_INVERT false
 #define ANIM_RENDER_WPM true
-#define FAST_TYPE_WPM 45 //Switch to fast animation when over words per minute
+#define FAST_TYPE_WPM 45 // Switch to fast animation when over words per minute
 
-//#include "demon.c"
+// #include "demon.c"
 
 void keyboard_pre_init_user(void) {
-  // Set our LED pin as output
-  setPinOutput(24);
-  // Turn the LED off
-  // (Due to technical reasons, high is off and low is on)
-  writePinHigh(24);
+    // Set our LED pin as output
+    setPinOutput(24);
+    // Turn the LED off
+    // (Due to technical reasons, high is off and low is on)
+    writePinHigh(24);
 }
-
-
 
 enum layers {
     _QWERTY = 0,
@@ -47,19 +45,18 @@ enum layers {
     _GAMING,
 };
 
-
 // Aliases for readability
-#define QWERTY   DF(_QWERTY)
+#define QWERTY DF(_QWERTY)
 
-#define SYM      MO(_SYM)
-#define NAV      MO(_NAV)
-#define GAMING   MO(_GAMING)
-#define FKEYS    MO(_FUNCTION)
+#define SYM MO(_SYM)
+#define NAV MO(_NAV)
+#define GAMING MO(_GAMING)
+#define FKEYS MO(_FUNCTION)
 
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
+#define CTL_ESC MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
+#define ALT_ENT MT(MOD_LALT, KC_ENT)
 #define RAISE_ENT LT(_NAV, KC_ENT)
 #define SPACE_LWR LT(_NAV, KC_SPC)
 #define GUI_SHFT LGUI(KC_LSFT)
@@ -69,6 +66,8 @@ enum layers {
 #define GUI_Z LGUI(KC_Z)
 #define GUI_D LGUI(KC_D)
 #define GUI_F LGUI(KC_F)
+#define MUNDO LGUI(KC_Z)
+#define MREDO LSG(KC_Z)
 
 // Left-hand home row mods
 #define HOME_A LCTL_T(KC_A)
@@ -81,8 +80,6 @@ enum layers {
 #define HOME_K RGUI_T(KC_K)
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RCTL_T(KC_SCLN)
-
-
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -122,14 +119,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      |      |      |      |      |  |      |      |   -  |  (   |  )   |      |  \   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |DELETE|      |      |      |
+ *                        |      |      |      |      | SPACE|  |ENTER |DELETE|      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
       _______ , _______, _______, _______, _______, _______,                                     _______ , KC_HOME, KC_UP,   KC_END,  KC_LBRC, KC_RBRC,
       _______ , KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, _______,                                     KC_EQL  , KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
       _______ , _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_LPRN, KC_RPRN, _______, KC_BSLS, _______,
-                                  _______, _______, _______, _______, _______, _______, KC_DEL , _______, _______, _______
+                                  _______, _______, _______, _______, KC_SPC , KC_ENT , KC_DEL , _______, _______, _______
 ),
 
 /*
@@ -224,8 +221,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    return true;
 //}
 
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_QWERTY] = { ENCODER_CCW_CW(KC_TAB,   S(KC_TAB)), ENCODER_CCW_CW(KC_PGUP, KC_PGDN ) },
+    [_NAV]  = { ENCODER_CCW_CW(KC_RIGHT, KC_LEFT),   ENCODER_CCW_CW(MUNDO,   MREDO ) },
+    [_FUNCTION]  = { ENCODER_CCW_CW(KC_PPLS,  KC_PMNS),   ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_SYM] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU),   ENCODER_CCW_CW(KC_SCRL, KC_PAUS ) },
+    [_GAMING] = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU),   ENCODER_CCW_CW(KC_SCRL, KC_PAUS ) },
+};
 
-// #ifdef OLED_DRIVER_ENABLE
 #if defined(OLED_ENABLE) || defined(OLED_DRIVER_ENABLE)
 
 #define WIDTH 128
@@ -388,6 +391,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
 	return OLED_ROTATION_180;
 }
+
 
 static void render_current_layer(void)
 {
