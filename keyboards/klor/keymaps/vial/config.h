@@ -2,10 +2,8 @@
 
 #define MASTER_LEFT
 
-#define VIAL_KEYBOARD_UID {0xBA, 0x38, 0x22, 0x3F, 0x8C, 0x42, 0x0F, 0x44}
-
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
+#define VIAL_KEYBOARD_UID \
+    { 0xBA, 0x38, 0x22, 0x3F, 0x8C, 0x42, 0x0F, 0x44 }
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
@@ -13,9 +11,31 @@
 #define NO_ACTION_TAPPING
 #define NO_MUSIC_MODE
 
+#define ENCODER_RESOLUTION 2
+
+#define TAPPING_FORCE_HOLD
+
+#define SPLIT_WPM_ENABLE
+
+// Configure the global tapping term (default: 200ms)
+#define TAPPING_TERM 230
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define QUICK_TAP_TERM 0
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define VIAL_TAP_DANCE_ENTRIES 20
+
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
+// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17 // Specify a optional status led by GPIO number which blinks when entering the bootloader
+
 // RGB matrix support
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_KEYRELEASES
+
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effect
